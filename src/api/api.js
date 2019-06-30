@@ -1,32 +1,5 @@
 
-import axios from 'axios';
+import { post } from './axios';
 
-/**
- * @description: get请求
- */
-export function get(url, params) {
-  return new Promise((resolve, reject) => {
-    axios.get(url, {
-      params,
-    }).then((res) => {
-      resolve(res);
-    }).catch((err) => {
-      reject(err);
-    });
-  });
-}
-
-/**
- * @description: post请求
- */
-export function post(url, params) {
-  return new Promise((resolve, reject) => {
-    axios
-      .post(url, params)
-      .then((res) => {
-        resolve(res);
-      }).catch((err) => {
-        reject(err);
-      });
-  });
-}
+// 登陆
+export const login = (login, loginParams) => post(login, loginParams);

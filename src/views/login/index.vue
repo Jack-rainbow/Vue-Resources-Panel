@@ -1,13 +1,13 @@
 <template>
   <div class="layout-login">
-    <h1 class="layout_title">
+    <div class="layout_main">
+      <h1 class="layout_title">
         <img
           class="logo-login"
-          src="https://deepexi.oss-cn-shenzhen.aliyuncs.com/xpaas-console/logo_SPaaS_black.png"
+          src=""
           alt=""
         />
     </h1>
-    <div class="layout_main">
       <el-form :model="form" status-icon :rules="rules" ref="loginForm" class="login-content">
         <el-form-item label="" prop="code">
           <el-input
@@ -26,8 +26,9 @@
             placeholder="密码"
             type="password"
             v-model.trim="form.password"
-            auto-complete="off"
+            show-password
             @keyup.enter.native="login"
+            auto-complete="off"
           ></el-input>
         </el-form-item>
         <el-form-item>
@@ -51,15 +52,11 @@
 
 <script>
 import Copyright from '../../components/copyright/index';
+import { login } from '@/api/api.js';
+
 
 export default {
   name: 'login',
-  head() {
-    return {
-      title: 'XX系统登录',
-    };
-  },
-
   data () {
     const validateUserName = (rules, value, callback) => {
       if (!value) {
@@ -105,30 +102,56 @@ export default {
           },
         ],
       },
+      test: {
+        username: 'admin',
+        password: 'admin',
+      },
     };
   },
   components: {
-    Copyright
+    Copyright,
   },
   methods: {
     login() {
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          this.loading = true;
+          let params = {
+            username: this.form.username,
+            password: this.form.password,
+            channel: 'xPaaS',
+            code: "pms1",
+          };
 
+          this.$store
+          .dispatch('loginByUser', params).then(() => {
+            this.loading = false;
+            this.$router.replace('/');
+          }).catch((e) => {
+            // TODO 异常处理
+            this.loading = false;
+            console.log(e);
+          });
+        
+        } else {
+          return false;
+        }
+      });
     },
     toSignUp() {
       this.$router.push('/');
     },
   },
-}
+};
 
 </script>
 <style lang="less" scoped>
 .layout-login{
   position: absolute;
-  padding: 8% 0 0;
   width: 100%;
   min-height: 100%;
   background-color: #f0f2f5;
-  background-image: url(https://deepexi.oss-cn-shenzhen.aliyuncs.com/xpaas-console/bg_login.png);
+  background-image: url(../../static/img/bg_login.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
 
@@ -150,10 +173,17 @@ export default {
   //主要内容
   .layout_main{
     width: 450px;
-    margin: 0 auto 100px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
     padding: 50px 0 20px;
     background: #fff;
+    transform: translate(-50%,-50%);
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
+    .login-content{
+      width: 300px;
+      margin: auto;
+    }
   }
   // 底部copy
   .buttom-wrapper {

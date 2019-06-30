@@ -22,7 +22,7 @@ axios.interceptors.request.use(
       fullscreen: true,
     });
     if (store.state.token) {
-      config.headers['Authorization'] = `Bearer${store.state.token}`; //  Authorization
+      config.headers['Authorization'] = `Bearer${store.state.token}`; // 身份令牌
     }
     return config;
   },
@@ -56,12 +56,10 @@ axios.interceptors.response.use(
     if (!error.response) {
       // 请求超时
       if (error.message.includes('timeout')) {
-        console.log('超时了');
-        // messages('error', '请求超时，请检查互联网连接');
+        console.log('error', '请求超时，请检查互联网连接');
       } else {
         // 断网，可以展示断网组件
-        console.log('断网了');
-        // messages('error', '请检查网络是否已连接');
+        console.log('error', '请检查网络是否已连接');
       }
       return;
     }
