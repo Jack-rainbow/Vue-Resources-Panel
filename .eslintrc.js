@@ -15,10 +15,18 @@ module.exports = {
       {
         "caseSensitive": false
       }
-    ]
+    ],
+    'linebreak-style': 0,
+    'import/no-unresolved': 0,
+    'no-param-reassign': 0,
+    'arrow-body-style': 0,
+    'dot-notation': 0,
+    'consistent-return': 0,
+    'no-trailing-spaces': 0,
+    'operator-linebreak': [2, 'after', { 'overrides': { '?': 'before', ':': 'before' } }],
   },
   settings: {
-    'import/resolver': webpack
+    // 'import/resolver': webpack
   },
   parserOptions: {
     parser: 'babel-eslint',
