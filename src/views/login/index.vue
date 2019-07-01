@@ -51,7 +51,7 @@
 
 
 <script>
-import Copyright from '../../components/copyright/index';
+import Copyright from '../../components/Copyright/index';
 import { login } from '@/api/api.js';
 
 
@@ -76,9 +76,9 @@ export default {
     return {
       loading: false,
       form: {
-        username: '',
-        password: '',
-        code: '',
+        username: 'pms1',
+        password: 'abcd1234',
+        code: 'pms1',
       },
       rules: {
         username: [
@@ -126,7 +126,9 @@ export default {
           this.$store
           .dispatch('loginByUser', params).then(() => {
             this.loading = false;
-            this.$router.replace('/');
+            this.$router.push({
+              path: "/about",
+            });
           }).catch((e) => {
             // TODO 异常处理
             this.loading = false;
