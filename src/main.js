@@ -1,12 +1,11 @@
-/* eslint-disable import/extensions */
 import Vue from 'vue';
-
 import App from './App.vue';
 import router from './router/router';
 import store from './store/store';
-import './plugins/element.js';
-import './style/global.less';
+import Element from 'element-ui';
 
+
+Vue.use(Element);
 Vue.config.productionTip = false;
 
 new Vue({

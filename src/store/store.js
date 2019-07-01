@@ -27,7 +27,7 @@ export default new Vuex.Store({
         setToken(payload[key], key);
       });
     },
-    // 保存标签
+    //保存标签
     TAGES_LIST(state, arr) {
       state.tagsList = arr;
     },
