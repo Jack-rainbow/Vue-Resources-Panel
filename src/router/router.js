@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import store from '../store/store';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import store from '../store/store';
@@ -12,8 +11,8 @@ const myRouter = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    { 
-      path: '*', 
+    {
+      path: '*',
       redirect: '/404',
     },
     {
@@ -53,11 +52,10 @@ const myRouter = new Router({
   ],
 });
 
-//路由配置
+// 路由配置
 
-myRouter.beforeEach((to, from, next)=> {
+myRouter.beforeEach((to, from, next) => {
   NProgress.start();
-<<<<<<< HEAD
   // if (!store.state.token) {   // 此处有死循环-
   //   next(
   //     {
@@ -68,15 +66,8 @@ myRouter.beforeEach((to, from, next)=> {
   //   NProgress.done(); // 结束Progress
   // }
 });
-=======
-  if (to.path !== '/login') {
-    next('/'); //跳转登录
-    NProgress.done(); // 结束Progress
-  }
-})
->>>>>>> 34d9109301b46ffa6f094168378f706550645352
 myRouter.afterEach(() => {
   NProgress.done(); // 结束Progress
-})
+});
 
 export default myRouter;

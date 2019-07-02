@@ -1,8 +1,8 @@
 import Vue from 'vue';
+import Element from 'element-ui';
 import App from './App.vue';
 import router from './router/router';
 import store from './store/store';
-import Element from 'element-ui';
 
 
 Vue.use(Element);

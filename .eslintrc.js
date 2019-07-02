@@ -10,15 +10,15 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    "import/no-unresolved": [
+    'import/no-unresolved': [
       2,
       {
-        "caseSensitive": false
-      }
-    ]
+        caseSensitive: false,
+      },
+    ],
   },
   settings: {
-    'import/resolver': webpack
+    // 'import/resolver': webpack
   },
   parserOptions: {
     parser: 'babel-eslint',

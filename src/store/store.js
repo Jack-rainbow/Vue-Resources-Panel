@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 // import createPersistedState from 'vuex-persistedstate';
-import { getToken,setToken, removeToken } from '@/utils/auth';
+import { getToken, setToken, removeToken } from '@/utils/auth';
 import { login } from '@/api/api.js';
 
 Vue.use(Vuex);
@@ -27,7 +27,7 @@ export default new Vuex.Store({
         setToken(payload[key], key);
       });
     },
-    //保存标签
+    // 保存标签
     TAGES_LIST(state, arr) {
       state.tagsList = arr;
     },
