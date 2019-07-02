@@ -57,7 +57,7 @@ import { login } from '@/api/api.js';
 
 export default {
   name: 'login',
-  data () {
+  data() {
     const validateUserName = (rules, value, callback) => {
       if (!value) {
         callback('请输入账号');
@@ -116,25 +116,24 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true;
-          let params = {
+          const params = {
             username: this.form.username,
             password: this.form.password,
             channel: 'xPaaS',
-            code: "pms1",
+            code: 'pms1',
           };
 
           this.$store
-          .dispatch('loginByUser', params).then(() => {
-            this.loading = false;
-            this.$router.push({
-              path: "/about",
-            });
-          }).catch((e) => {
+            .dispatch('loginByUser', params).then(() => {
+              this.loading = false;
+              this.$router.push({
+                path: '/about',
+              });
+            }).catch((e) => {
             // TODO 异常处理
-            this.loading = false;
-            console.log(e);
-          });
-        
+              this.loading = false;
+              console.log(e);
+            });
         } else {
           return false;
         }

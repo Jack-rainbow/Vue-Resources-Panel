@@ -46,6 +46,11 @@ const myRouter = new Router({
       component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
       hidden: true,
     },
+    {
+      path: '/dashboard',
+      component: () => import('@/views/dashboard/index'),
+      hidden: true,
+    },
   ],
 });
 
