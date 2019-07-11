@@ -90,6 +90,11 @@ export default {
 
 <style lang="less" scoped>
 .head-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  overflow: hidden;
   background-color: #24292e;
 }
 .header-user-con {

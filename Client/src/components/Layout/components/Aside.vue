@@ -1,50 +1,24 @@
 <template>
   <div class="aside">
     <el-menu
-      :default-active="onRoutes"
-      class="el-menu-vertical"
-      @open="handleOpen"
-      @close="handleClose"
-      active-text-color="#bdb7ff"
-      router
-      :collapse="isCollapse"
-    >
-      <template v-for="item in items">
-        <template v-if="item.subs">
-          <el-submenu :index="item.index" :key="item.index">
-            <template slot="title">
-              <i :class="item.icon"></i>
-              <span slot="title">{{ item.title }}</span>
-            </template>
-            <template v-for="subItem in item.subs">
-              <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
-                <template slot="title">{{ subItem.title }}</template>
-                <el-menu-item
-                  v-for="(threeItem, i) in subItem.subs"
-                  :key="i"
-                  :index="threeItem.index"
-                  >{{ threeItem.title }}</el-menu-item
-                >
-              </el-submenu>
-              <el-menu-item v-else :index="subItem.index" :key="subItem.index">{{
-                subItem.title
-              }}</el-menu-item>
-            </template>
-          </el-submenu>
-        </template>
-        <template v-else>
-          <el-menu-item :index="item.index" :key="item.index">
-            <i :class="item.icon"></i>
-            <span slot="title">{{ item.title }}</span>
-          </el-menu-item>
-        </template>
-      </template>
-    </el-menu>
+        :default-active="onRoutes"
+        class="el-menu-vertical"
+        @open="handleOpen"
+        @close="handleClose"
+        active-text-color="#bdb7ff"
+        router
+        :collapse="isCollapse"
+      >
+      <scrollbar wrap-class="scrollbar-wrapper" :noresize="false">
+        <menu-item :menuList="items"></menu-item>
+      </scrollbar>
+      </el-menu>
   </div>
 </template>
 
 <script>
-// import { mapState } from 'vuex'
+import Scrollbar from '@/components/Scrollbar/index.js';
+import MenuItem from '@/components/MenuItem/index';
 
 export default {
   data() {
@@ -73,7 +47,27 @@ export default {
             },
             {
               index: 'countTo',
-              title: '数字滚动'
+              title: '数字滚动',
+              subs: [
+                {
+                  index: 'editor',
+                  title: '富文本编译器'
+                },
+                {
+                  index: 'countTo',
+                  title: '数字滚动',
+                  subs: [
+                    {
+                      index: 'editor',
+                      title: '富文本编译器'
+                    },
+                    {
+                      index: 'countTo',
+                      title: '数字滚动'
+                    },
+                  ]
+                },
+              ]
             },
             {
               index: 'trees',
@@ -135,6 +129,10 @@ export default {
       ]
     };
   },
+   components: {
+    Scrollbar,
+    MenuItem
+  },
   computed: {
     onRoutes() {
       return this.$route.path.replace('/', '');
@@ -142,8 +140,6 @@ export default {
     isCollapse() {
       return !!this.collapse;
     }
-
-    // ...mapState(["isCollapse"]) //从vuex里面获取菜单是否折叠
   },
   methods: {
     // 下拉展开
@@ -158,7 +154,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .aside {
   transition: width 0.28s;
   width: 200px !important;
@@ -171,10 +167,90 @@ export default {
   z-index: 1001;
   overflow: hidden;
   box-shadow: 1px 0 6px rgba(0, 21, 41, 0.35);
-}
-.el-menu-vertical {
-  li {
-    text-align: left;
+  .horizontal-collapse-transition {
+    transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
   }
+  .scrollbar-wrapper {
+    height: calc(100vh - 0px - 100px);
+    overflow-x: hidden !important;
+    margin-bottom: 0 !important;
+
+    .el-scrollbar__view {
+      height: 100%;
+    }
+  }
+  .el-scrollbar__bar.is-vertical {
+    right: 0;
+  }
+
+  .is-horizontal {
+    display: none;
+  }
+
+  .fix-btn-wrap {
+    height: 50px;
+
+    .collapse-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      width: 100%;
+      background: rgba(240, 242, 245, 1);
+      cursor: pointer;
+    }
+
+    .btn-icon {
+      transform: rotate(180deg);
+      font-size: 16px;
+    }
+  }
+
+  // 折叠
+  &.hideSidebar {
+    width: 64px !important;
+
+    .scrollbar-wrapper {
+      height: calc(100vh - 60px - 50px);
+    }
+
+    .el-submenu__title {
+      text-align: center;
+    }
+
+    // 有子菜单
+    .sub-menu-title,
+    .el-submenu__icon-arrow {
+      display: none;
+    }
+
+    [class*='icon'] {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .fix-btn-wrap {
+      .btn-icon {
+        transform: rotate(0deg);
+      }
+    }
+  }
+
+  .menu--vertical {
+    > .menu--popup {
+      max-height: 100vh;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 20px;
+      }
+    }
+  }
+
 }
+
 </style>
