@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize('world', 'root', 'root', {
     host: 'localhost',
     dialect: 'mysql',
-    operatorsAliases: false,
+    operatorsAliases: false, //为操作符设置别名(sql表别名)
     dialectOptions: {
         //字符集
         charset: 'utf8mb4',
