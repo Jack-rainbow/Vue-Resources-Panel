@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "debug": "^4.1.1",
+    "dotenv": "^8.0.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-convert": "^1.2.0",
@@ -26,6 +27,7 @@
     "md5": "^2.2.1",
     "mysql": "^2.17.1",
     "mysql2": "^1.6.5",
+    "nodemailer": "^6.2.1",
     "pug": "^2.0.3",
     "sequelize": "^5.9.4"
   },
