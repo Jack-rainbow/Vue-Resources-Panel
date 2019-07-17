@@ -1,39 +1,7 @@
-const path = require('path');
+
 const log4js = require('koa-log4');
+const config = require('../config/logs')
+log4js.configure(config);
 
-log4js.configure({
-    appenders: {
-        access: {
-            type: 'console',
-            pattern: '-yyyy-MM-dd.log', //生成文件的规则
-            filename: path.resolve('./logList/', 'access.log'), //生成文件名
-            layout: ''
-        },
-        application: {
-            type: 'console',
-            pattern: '-yyyy-MM-dd.log',
-            filename: path.resolve('./logList/', 'application.log')
-        },
-        out: {
-            type: 'console'
-        }
-    },
-    categories: {
-        default: {
-            appenders: ['out'],
-            level: 'info'
-        },
-        access: {
-            appenders: ['access'],
-            level: 'info'
-        },
-        application: {
-            appenders: ['application'],
-            level: 'WARN'
-        }
-    }
-});
-
-exports.accessLogger = () =>
-    log4js.koaLogger(log4js.getLogger('access')); //记录所有访问级别的日志
-exports.logger = log4js.getLogger('application'); //记录所有应用级别的日志
+exports.accessLogger = () => log4js.koaLogger(log4js.getLogger('access'));
+exports.logger = log4js.getLogger('application');

@@ -1,5 +1,5 @@
 // 引入mysql的配置文件
-const db = require('../config/db');
+const db = require('../config/index');
 
 // 引入sequelize对象
 const Sequelize = db.sequelize;

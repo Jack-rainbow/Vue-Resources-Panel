@@ -8,7 +8,9 @@ const cors = require('koa-cors')
 const index = require('./routes/index')
 const {
   accessLogger,
-} = require('./logs/index')
+} = require('./logs/index');
+// 日志输出美化
+const signale = require('./config/signale');
 
 // !  日志服务
 app.use(accessLogger())
@@ -34,11 +36,11 @@ app.use(index.routes(), index.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
-  console.error('server error', err, ctx)
+  signale.fatal('server error', err, ctx)
 });
 
 app.listen(() => {
-  console.log('服务器已启动，访问 http://localhost:3000')
+  signale.success('服务启动完成，访问 http://localhost:3000')
 })
 
 module.exports = app
