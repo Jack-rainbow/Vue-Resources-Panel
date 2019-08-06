@@ -1,0 +1,2 @@
+[2019-08-06T17:11:36.691] [INFO] cheese - {"projectName":"koa2-log","serverIp":"0.0.0.0","method":"POST","url":"/api/v1/login","host":"localhost:3000","message":{"responseTime":"响应时间为0.029s"},"body":{"email":"987709173@qq.com","password":66636},"userAgent":"PostmanRuntime/7.15.2"}
+[2019-08-06T17:12:12.685] [INFO] cheese - {"projectName":"koa2-log","serverIp":"0.0.0.0","method":"POST","url":"/api/v1/login","host":"localhost:3000","message":{"responseTime":"响应时间为0.03s"},"body":{"email":"987709173@qq.com","password":66636},"userAgent":"PostmanRuntime/7.15.2"}

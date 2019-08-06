@@ -1,4 +1,5 @@
 const UserInfoModel = require("../modules/userInfo");
+const jwt = require('jsonwebtoken')
 
 class articleController {
     /**
@@ -60,6 +61,14 @@ class articleController {
                 const res = await UserInfoModel.getUserEmail(email);
                 if (res) {
                     await UserInfoModel.updatePass(email, password);
+                    const token = jwt.sign({
+                        email,
+                        password
+                    },
+                     'my_token',  // 密钥， 自己定义的
+                     {
+                        expiresIn: '2h' //token 的过期时间
+                    })
                     ctx.response.status = 200;
                     ctx.body = {
                         code: 200,
