@@ -1,14 +1,7 @@
-// 引入mysql的配置文件
-import db from '../config/index';
-
-// 引入sequelize对象
-const Sequelize = db.sequelize;
-
+import Sequelize from '../index'
 // 引入数据表模型
-const Article = Sequelize.import('../schema/article');
-Article.sync({
-    force: false
-}); //自动创建表
+const Article = Sequelize.import('../../schema/article');
+
 
 class ArticleModel {
     /**
