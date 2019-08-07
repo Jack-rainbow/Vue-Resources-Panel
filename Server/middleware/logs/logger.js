@@ -1,9 +1,8 @@
 
-const log4js = require('log4js');
-const access = require("./access.js");
-const {
-    baseInfo
-} = require("../../config/log.js");
+import log4js from 'log4js';
+import access from './access.js';
+import {baseInfo} from "../../config/log.js";
+
 const methods = ["trace", "debug", "info", "warn", "error", "fatal", "mark"]
 
 

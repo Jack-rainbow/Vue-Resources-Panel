@@ -1,4 +1,4 @@
-const path = require('path');
+import  path from "path";
 const baseInfo = {
     appLogLevel: 'debug',
     dir: path.resolve('./logList/access/', 'access'),

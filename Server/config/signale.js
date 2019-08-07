@@ -1,9 +1,9 @@
 // 日志输出美化
 // https://github.com/klaussinani/signale/blob/master/docs/readme.zh_CN.md
-const {
+import {
     Signale
-} = require('signale');
-
+}
+from 'signale'
 const options = {
     disabled: false,
     interactive: false,

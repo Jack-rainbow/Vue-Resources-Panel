@@ -1,6 +1,6 @@
-const Router = require('koa-router')
-const ArtileController = require('../controllers/article');
-const userInfoController = require('../controllers/userInfo');
+import Router from 'koa-router'
+import ArtileController from '../controllers/article'
+import userInfoController from '../controllers/userInfo'
 
 
 const router = new Router({

@@ -1,4 +1,5 @@
-const logger = require("./logger")
+import logger from './logger';
+
 module.exports = (options) => {
     const loggerMiddleware = logger(options)
 

@@ -1,9 +1,10 @@
-const jwt = require('jsonwebtoken')
-const nodemailer = require('nodemailer')
-const {
-        emailConfig,
-        jwt
-} = require('../config')
+import jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
+import {
+    emailConfig,
+    jwt
+}
+from '../config';
 
 let transport = nodemailer.createTransport(emailConfig)
 
