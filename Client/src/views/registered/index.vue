@@ -5,21 +5,18 @@
         <el-form-item label="" prop="email">
           <el-input placeholder="请输入邮箱" v-model.trim="form.email"></el-input>
         </el-form-item>
+        <el-form-item label="" prop="username">
+          <el-input placeholder="请输入用户名" v-model.trim="form.username"></el-input>
+        </el-form-item>
         <el-form-item label="" prop="password">
           <el-input
-            placeholder="请输入密码"
+            placeholder="密码"
             type="password"
             v-model.trim="form.password"
             show-password
             @keyup.enter.native="login"
             auto-complete="off"
           ></el-input>
-        </el-form-item>
-        <el-form-item class="auto-form">
-          <div class="item__content">
-            <el-checkbox v-model="isAutoLogin">自动登录</el-checkbox>
-            <el-button type="text" class="forget-pass">忘记密码</el-button>
-          </div>
         </el-form-item>
         <el-form-item>
           <el-button
@@ -28,37 +25,34 @@
             :loading="loading"
             size="medium"
             class="login-button primary-button"
-            >登录</el-button
+            >注册</el-button
           >
         </el-form-item>
+        <div class="el-divider--horizontal"></div>
         <el-form-item class="auto-form">
           <div class="item__content">
-            <ul class="login-way">
-              <li>其他登录方式</li>
-              <li><i class="el-icon-news"></i></li>
-              <li><i class="el-icon-goods"></i></li>
-              <li><i class="el-icon-mobile-phone"></i></li>
-            </ul>
-            <el-button type="text" class="forget-pass" @click="registeredBtn">注册账户</el-button>
+            <el-button type="text" @click="loginBtn">已有账号？去登录</el-button>
           </div>
         </el-form-item>
       </el-form>
-    </div>
-    <div class="buttom-wrapper font-s text-center ">
-      <copy-right></copy-right>
     </div>
   </div>
 </template>
 
 <script>
-import CopyRight from '@/components/CopyRight/index.vue';
-
 export default {
-  name: 'login',
+  name: 'registered',
   data() {
-    const validateEamil = (rules, value, callback) => {
+    const validateEmail = (rules, value, callback) => {
       if (!value) {
         callback('请输入邮箱');
+      } else {
+        callback();
+      }
+    };
+    const validateUserName = (rules, value, callback) => {
+      if (!value) {
+        callback('请输入用户名');
       } else {
         callback();
       }
@@ -70,20 +64,26 @@ export default {
         callback();
       }
     };
-
     return {
-      isAutoLogin: false,
       loading: false,
       form: {
-        email: 'pms1',
+        username: 'pms1',
         password: 'abcd1234',
+        email: '987709173@qq.com'
       },
       rules: {
         email: [
           {
-            validator: validateEamil,
+            validator: validateEmail,
             trigger: 'blur',
             required: true,
+          },
+        ],
+        username: [
+          {
+            required: true,
+            validator: validateUserName,
+            trigger: 'blur'
           }
         ],
         password: [
@@ -92,45 +92,23 @@ export default {
             required: true,
             trigger: 'blur'
           }
-        ],
+        ]
       }
     };
-  },
-  components: {
-    CopyRight
   },
   methods: {
     login() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true;
-          const params = {
-            username: this.form.username,
-            password: this.form.password,
-            channel: 'xPaaS',
-            code: 'pms1'
-          };
 
-          this.$store
-            .dispatch('loginByUser', params)
-            .then(() => {
-              this.loading = false;
-              this.$router.push({
-                path: '/dashboard'
-              });
-            })
-            .catch(e => {
-              // TODO 异常处理
-              this.loading = false;
-              console.log(e);
-            });
         } else {
           return false;
         }
       });
     },
-    registeredBtn(){
-      this.$router.push('/registered');
+    loginBtn() {
+      this.$router.push('/login');
     }
   }
 };
@@ -144,7 +122,6 @@ export default {
   background-image: url(../../static/img/bg_login.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
-
 
   //主要内容
   .layout_main {
@@ -175,36 +152,16 @@ export default {
           display: inline-block;
         }
       }
-    }
-  }
-  // 底部copy
-  .buttom-wrapper {
-    width: 100%;
-    position: absolute;
-    bottom: 41px;
-
-    .buttom-link {
-      height: 17px;
-      line-height: 17px;
-      margin-bottom: 11px;
-
-      a {
-        color: rgba(255, 255, 255, 1);
-      }
-
-      .service-item {
-        margin: 0 24px;
-        cursor: pointer;
+      .el-divider--horizontal{
+        display: block;
+        height: 1px;
+        width: 100%;
+        margin: 24px 0;
+        background-color: #dcdfe6;
       }
     }
-
-    .copyright {
-      height: 17px;
-      line-height: 17px;
-      font-size: 12px;
-      color: #606266;
-    }
   }
+
   .el-form {
     width: 100%;
     margin: auto;

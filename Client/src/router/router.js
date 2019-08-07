@@ -49,6 +49,11 @@ const myRouter = new Router({
       hidden: true
     },
     {
+      path: '/registered',
+      component: () => import('@/views/registered/index'),
+      hidden: true
+    },
+    {
       path: '*',
       redirect: '/404'
     }

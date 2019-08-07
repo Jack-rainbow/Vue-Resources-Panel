@@ -49,6 +49,7 @@ class articleController {
                 // 查询文章详情模型
                 let data = await ArticleModel.getArticleDetail(id);
                 ctx.response.status = 200;
+                
                 ctx.body = {
                     code: 200,
                     msg: '查询成功',
