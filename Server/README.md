@@ -80,5 +80,12 @@
 ### 搭建开发环境
 - nodemon 检测文件变化，自动重启 node
 - cross-env 兼容 mac linux 和 windows 的环境变量
-
+- node使用import
+``` js
+require('babel-register')
+({
+    plugins: ['babel-plugin-transform-es2015-modules-commonjs'],
+})
+module.exports = require('./app.js')// 入口文件
+```
 [⬆ Back to Top](#目录结构)

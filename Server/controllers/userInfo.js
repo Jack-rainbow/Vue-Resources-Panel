@@ -1,5 +1,5 @@
-const UserInfoModel = require("../modules/userInfo");
-const jwt = require('jsonwebtoken')
+import UserInfoModel from '../modules/userInfo';
+import jwt from 'jsonwebtoken';
 
 class articleController {
     /**

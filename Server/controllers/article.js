@@ -1,4 +1,4 @@
-const ArticleModel = require("../modules/article");
+import ArticleModel from '../modules/article';
 
 class articleController {
     /**

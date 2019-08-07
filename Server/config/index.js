@@ -1,6 +1,6 @@
 require('dotenv').config();
 const env = process.env;
-const Sequelize = require('sequelize');
+import Sequelize from 'sequelize';
 const sequelize = new Sequelize('world', 'root', 'root', {
     host: 'localhost',
     dialect: 'mysql',

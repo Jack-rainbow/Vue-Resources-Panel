@@ -1,12 +1,12 @@
-const Koa = require('koa')
-const app = new Koa()
-const json = require('koa-json')
-const bodyparser = require('koa-bodyparser')
-const cors = require('koa-cors')
-const index = require('./routes/index')
-const accessLogger = require('./middleware/logs/index'); // 日志输出
-const signale = require('./config/signale');  // shell输出美化
+import Koa from 'koa';
+import json from 'koa-json';
+import bodyparser from 'koa-bodyparser';
+import cors from 'koa-cors';
+import router from './routes';
+import accessLogger from './middleware/logs'; // 日志输出
+import signale from './config/signale'; // shell输出美化
 
+const app = new Koa()
 
 app.use(accessLogger()) // !  日志服务
   .use(cors()) // ! 跨域服务
@@ -14,8 +14,7 @@ app.use(accessLogger()) // !  日志服务
     enableTypes: ['json', 'form', 'text']
   }))
   .use(json())
-  .use(index.routes(), index.allowedMethods()) // ! 接口路由
-
+  .use(router.routes(), router.allowedMethods()) // ! 接口路由
 app.on('error', (err, ctx) => {
   // ! shell 启动失败
   signale.fatal('server error', err, ctx)
