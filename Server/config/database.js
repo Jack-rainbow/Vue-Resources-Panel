@@ -1,8 +1,10 @@
 require('dotenv').config();
 const env = process.env;
-import Sequelize from 'sequelize';
-const sequelize = new Sequelize('world', 'root', 'root', {
+const DATA_BASE = {
+    sqlUserName: 'root',
+    sqlPassword: 'root',
     host: 'localhost',
+    sqlName:'world',
     dialect: 'mysql',
     // operatorsAliases: false, //为操作符设置别名(sql表别名)
     dialectOptions: {
@@ -20,7 +22,7 @@ const sequelize = new Sequelize('world', 'root', 'root', {
     },
     logging: false, //控制台不输出sql语句服务
     timezone: '+08:00' //东八时区
-});
+};
 
 const otherConfig = {
     jwt: {
@@ -40,6 +42,6 @@ const otherConfig = {
     }
 }
 module.exports = {
-    sequelize,
+    DATA_BASE,
     otherConfig
 };
