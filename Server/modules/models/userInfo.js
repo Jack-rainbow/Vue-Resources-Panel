@@ -1,4 +1,5 @@
 import Sequelize from '../index'
+import md5 from 'md5';
 // const Sequelize = db.sequelize;
 // 引入数据表模型
 const UserInfo = Sequelize.import('../../schema/userInfo');
@@ -25,7 +26,7 @@ class UserInfoModel {
         return await UserInfo.create({
             userName: ctx.userName || '',
             email: ctx.email || '',
-            password: ctx.password || ''
+            password: md5(ctx.password) || ''
         });
     }
 
@@ -37,7 +38,6 @@ class UserInfoModel {
          return await UserInfo.findOne({
              where: {
                 email: ctx.email || '',
-                password: ctx.password || ''
              }
          });
     }

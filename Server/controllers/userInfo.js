@@ -1,12 +1,12 @@
 
-
 import Router from 'koa-router';
 import UserInfoModel from '../modules/models/userInfo';
 import {
     Success,
     HttpException
 } from '../middleware/http-exception';
-
+import jsonwebtoken from 'jsonwebtoken';
+import md5 from 'md5';
 // 此处前缀有问题
 const router = new Router(
 //     {
@@ -104,17 +104,27 @@ router.post('/login', async ctx => {
     } = ctx.request.body;
     if (!!email && !!password) {
         try {
-            const res = await UserInfoModel.usreLogin({
+            const {dataValues} = await UserInfoModel.usreLogin({
                 email,
-                password
             });
             const verifyEmail  = await UserInfoModel.getUserEmail(email);
-            if (res) {
+            if (md5(dataValues.password)  === md5(password)) {
                 ctx.response.status = 200;
                 ctx.body = {
                     code: 200,
-                    msg: '成功',
-                    data: true
+                    msg: '登陆成功',
+                    data: {
+                        email,
+                        status: true,
+                        password:md5(password),
+                        token: jsonwebtoken.sign({
+                            data: {
+                                email,
+                                password
+                            },
+                            exp: Math.floor(Date.now() / 1000) + (60 * 60), // 设置 token 过期时间
+                        }, 'yehocher'),
+                    }
                 }
             } else if (!verifyEmail) {
                 throw new HttpException('邮箱未注册', 10001, 400)
