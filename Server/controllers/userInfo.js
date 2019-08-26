@@ -1,10 +1,10 @@
-
 import Router from 'koa-router';
 import UserInfoModel from '../modules/models/userInfo';
 import {
     Success,
     HttpException
-} from '../middleware/http-exception';
+}
+from '../middleware/http-exception';
 import jsonwebtoken from 'jsonwebtoken';
 import md5 from 'md5';
 // 此处前缀有问题
@@ -108,7 +108,7 @@ router.post('/login', async ctx => {
                 email,
             });
             const verifyEmail  = await UserInfoModel.getUserEmail(email);
-            if (md5(dataValues.password)  === md5(password)) {
+            if (dataValues.password  === md5(password)) {
                 ctx.response.status = 200;
                 ctx.body = {
                     code: 200,
@@ -126,8 +126,9 @@ router.post('/login', async ctx => {
                         }, 'yehocher'),
                     }
                 }
-            } else if (!verifyEmail) {
-                throw new HttpException('邮箱未注册', 10001, 400)
+            // }
+            //  else if (!verifyEmail) {
+            //     throw new HttpException('邮箱未注册', 10001, 400)
             } else {
                 throw new HttpException('登录失败', 10001, 400)
             }
