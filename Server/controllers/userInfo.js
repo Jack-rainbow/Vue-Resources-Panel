@@ -2,19 +2,32 @@
 import Router from 'koa-router';
 import UserInfoModel from '../modules/models/userInfo';
 import {
-    Success,
-    HttpException
-} from '../middleware/http-exception';
+    CustomError,
+    HttpError
+  } from '../middleware/error/customError'
+  import constants from '../middleware/error/constants'
+  
 import jsonwebtoken from 'jsonwebtoken';
 import md5 from 'md5';
-// 此处前缀有问题
 const router = new Router(
-//     {
-//     prefix: '/api/vi'
-// }
+    {
+    prefix: '/api/v1'
+}
 )
 
-router.post('/userInfo/create', async ctx => {
+const auth = async (ctx,next) => { 
+    const {authorization = ''} = ctx.request.header;
+    const token = authorization.replace('Bearer','');
+    try {
+        //存放用户信息
+        const user = jsonwebtoken.verify(token,'yehocher');
+        ctx.state.user = user;
+    } catch (error) {
+        ctx.throw(401,error.message)
+    }
+    await next();
+}
+router.post('/userInfo/create',auth, async ctx => {
     let req = ctx.request.body;
     if (!!req.email && !!req.password) {
         try {
@@ -55,7 +68,7 @@ router.post('/userInfo/create', async ctx => {
     }
 })
 
-router.post('/userInfo/:email', async ctx => {
+router.post('/userInfo/:email',auth,  async ctx => {
     let {
         email,
         password
@@ -102,12 +115,15 @@ router.post('/login', async ctx => {
         email,
         password
     } = ctx.request.body;
+
     if (!!email && !!password) {
         try {
-            const {dataValues} = await UserInfoModel.usreLogin({
+            const dataValues = await UserInfoModel.usreLogin({
                 email,
+                password
             });
             const verifyEmail  = await UserInfoModel.getUserEmail(email);
+            console.log(verifyEmail,'dataValues',password);
             if (md5(dataValues.password)  === md5(password)) {
                 ctx.response.status = 200;
                 ctx.body = {
@@ -127,13 +143,18 @@ router.post('/login', async ctx => {
                     }
                 }
             } else if (!verifyEmail) {
-                throw new HttpException('邮箱未注册', 10001, 400)
+                ctx.response.status = 400;
+                ctx.body = {
+                    code: 500,
+                    msg: '邮箱未注册',
+                    data: ''
+                }
             } else {
-                throw new HttpException('登录失败', 10001, 400)
+                throw new CustomError(constants.CUSTOM_CODE.SOME_CUSTOM_ERROR)
             }
 
         } catch (err) {
-            ctx.log.info(err);
+            throw new CustomError(constants.CUSTOM_CODE.SOME_CUSTOM_ERROR)
         }
     } else {
         ctx.response.status = 400;
