@@ -75,10 +75,10 @@
 
 ### 异常处理
 - 日志配置文件：
-   - core/errorHandler.js
+   - core/error/customError.js
 - 日志使用
    - 当有异常请求的时候自动输出日志
-
+[参考链接](http://neoyeelf.github.io/2018/04/29/koa%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E5%9C%B0%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8/)
 [⬆ Back to Top](#目录结构)
 
 ### 登录处理
