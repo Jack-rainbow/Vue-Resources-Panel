@@ -16,7 +16,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
     "debug": "^4.1.1",
-    "dotenv": "^8.0.0",
+    "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
@@ -26,10 +26,11 @@
     "koa-jwt": "^3.5.1",
     "koa-mysql-session": "0.0.2",
     "koa-onerror": "^4.1.0",
+    "koa-parameter": "^3.0.1",
     "koa-router": "^7.4.0",
     "log4js": "^4.5.1",
     "md5": "^2.2.1",
-    "module-alias": "^2.2.1",
+    "module-alias": "^2.2.2",
     "mysql2": "^1.6.5",
     "nodemailer": "^6.2.1",
     "require-directory": "^2.1.1",
@@ -42,6 +43,6 @@
     "nodemon": "^1.19.1"
   },
   "_moduleAliases": {
-    "@": "./"
+    "@": "."
   }
 }

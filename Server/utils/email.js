@@ -4,7 +4,7 @@ import {
     emailConfig,
     jwt
 }
-from '../config';
+from '@/config';
 
 let transport = nodemailer.createTransport(emailConfig)
 

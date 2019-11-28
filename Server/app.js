@@ -1,3 +1,4 @@
+require('module-alias/register')
 import Koa from 'koa';
 import json from 'koa-json';
 import bodyparser from 'koa-bodyparser';
@@ -5,8 +6,7 @@ import cors from 'koa-cors';
 import accessLogger from './middleware/logs'; // 日志输出
 import signale from './config/signale'; // shell输出美化
 import InitManager from './routes';
-
-
+import Parameter  from 'koa-parameter';
 
 import {
   CustomError,
@@ -18,6 +18,7 @@ import {
 
 
 const app = new Koa()
+Parameter(app);
 
 app.use((ctx, next) => {
   return next().catch((err) => {

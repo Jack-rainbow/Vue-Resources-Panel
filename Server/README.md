@@ -96,4 +96,19 @@ require('babel-register')
 })
 module.exports = require('./app.js')// 入口文件
 ```
+
+### 目录别名
+
+- 采用`module-alias`包
+- 参考链接[模块包](https://www.npmjs.com/package/module-alias)
+
+
+### 参数校验
+
+- 采用`koa-parameter`包
+- 同理joi也可以，更完美，但是koa-parameter更完美，更符合我的业务需求
+  
+
+
+
 [⬆ Back to Top](#目录结构)

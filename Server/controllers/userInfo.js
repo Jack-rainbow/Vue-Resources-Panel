@@ -1,11 +1,11 @@
 
 import Router from 'koa-router';
-import UserInfoModel from '../modules/models/userInfo';
+import UserInfoModel from '@/modules/models/userInfo';
 import {
     CustomError,
     HttpError
-  } from '../middleware/error/customError'
-  import constants from '../middleware/error/constants'
+  } from '@/middleware/error/customError'
+  import constants from '@/middleware/error/constants'
   
 import jsonwebtoken from 'jsonwebtoken';
 import md5 from 'md5';
@@ -115,7 +115,10 @@ router.post('/login', async ctx => {
         email,
         password
     } = ctx.request.body;
-
+    ctx.verifyParams({
+        email: {type: 'string', required: true},
+        password: {type: 'string', required: true}
+    });
     if (!!email && !!password) {
         try {
             const dataValues = await UserInfoModel.usreLogin({
@@ -123,7 +126,6 @@ router.post('/login', async ctx => {
                 password
             });
             const verifyEmail  = await UserInfoModel.getUserEmail(email);
-            console.log(verifyEmail,'dataValues',password);
             if (md5(dataValues.password)  === md5(password)) {
                 ctx.response.status = 200;
                 ctx.body = {
